@@ -39,7 +39,6 @@ public class VelocityColorFormatter implements ColorFormatter {
 
     @Override
     public String translateAlternateColorCodes(char altColorChar, String textToTranslate) {
-        // Use Adventure's legacy serializer to handle color codes
         var component = LegacyComponentSerializer.legacyAmpersand().deserialize(
             textToTranslate.replace(altColorChar, '&')
         );

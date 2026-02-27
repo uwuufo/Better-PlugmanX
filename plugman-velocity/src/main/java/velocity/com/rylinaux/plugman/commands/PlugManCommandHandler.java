@@ -84,8 +84,6 @@ public class PlugManCommandHandler implements SimpleCommand {
         if (args.length <= 1) {
             return Arrays.asList(COMMANDS);
         }
-        
-        // For now, return empty list for sub-command suggestions
         return List.of();
     }
 

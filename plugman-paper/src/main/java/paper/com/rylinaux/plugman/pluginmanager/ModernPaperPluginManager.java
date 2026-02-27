@@ -47,7 +47,6 @@ import java.util.function.Predicate;
 import java.util.logging.Level;
 
 public class ModernPaperPluginManager extends PaperPluginManager {
-    //TODO: Add paper-plugin support
 
     public ModernPaperPluginManager(BukkitPluginManager bukkitPluginManager) {
         super(bukkitPluginManager);

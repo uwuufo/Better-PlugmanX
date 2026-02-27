@@ -22,8 +22,6 @@ public record VelocityPlugin(PluginContainer pluginContainer, Object instance) i
 
     @Override
     public boolean isEnabled() {
-        // Velocity plugins don't have an enabled/disabled state like Bukkit
-        // They are either loaded or not loaded
         return true;
     }
 

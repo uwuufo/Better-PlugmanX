@@ -68,7 +68,6 @@ public class PaperInitializer {
      * Show Paper warning if running on Paper server
      */
     public void showPaperWarningIfNeeded(PluginManager pluginManager) {
-        // ModernPaperPluginManager (1.20.5+) fully supports paper plugins — no warning needed
         if (!(pluginManager instanceof PaperPluginManager) || pluginManager instanceof ModernPaperPluginManager) return;
 
         plugin.getLogger().warning("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");

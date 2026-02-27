@@ -83,7 +83,6 @@ public class VelocityPlugManInitializer extends BasePlugManInitializer {
     protected MessageFormatter createMessageFormatter() throws IOException {
         var messagesFile = getDataFolder().toPath().resolve("messages.yml");
         if (!Files.exists(messagesFile)) {
-            // Create default messages file if it doesn't exist
             Files.createDirectories(messagesFile.getParent());
             try (var inputStream = getClass().getResourceAsStream("/messages.yml")) {
                 if (inputStream != null) Files.copy(inputStream, messagesFile);

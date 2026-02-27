@@ -217,7 +217,6 @@ public class BungeePluginManager implements PluginManager {
 
     @Override
     public boolean isPaperPlugin(Plugin plugin) {
-        // Bungee plugins are not Paper plugins
         return false;
     }
 

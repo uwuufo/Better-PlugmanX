@@ -48,8 +48,6 @@ import java.util.List;
 public class VelocityConfigurationProvider implements YamlConfigurationProvider {
     private final Path configPath;
 
-    //TODO: Actually implement this .-.
-
     @SneakyThrows
     @Override
     public YamlConfigurationProvider loadConfiguration(File file) {

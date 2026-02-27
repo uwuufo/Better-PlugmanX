@@ -27,8 +27,6 @@ import java.util.stream.Collectors;
  * @author rylinaux
  */
 public class VelocityPluginManager implements PluginManager {
-    //TODO: Actually implement this
-    //TODO: Use `id` instead of name. Name isn't guaranteed to be available
 
     private ProxyServer getServer() {
         return PlugManVelocity.getInstance().getServer();
@@ -92,7 +90,6 @@ public class VelocityPluginManager implements PluginManager {
 
     @Override
     public List<String> getDisabledPluginNames(boolean fullName) {
-        // Velocity doesn't have disabled plugins concept
         return Collections.emptyList();
     }
 
@@ -136,14 +133,12 @@ public class VelocityPluginManager implements PluginManager {
                 }
             }
 
-            // Also check for namespaced commands (plugin:command)
             for (var alias : getServer().getCommandManager().getAliases())
                 if (alias.contains(":")) {
                     var parts = alias.split(":");
                     if (parts.length == 2 && parts[1].equalsIgnoreCase(command)) if (!list.contains(parts[0])) list.add(parts[0]);
                 }
         } catch (Exception exception) {
-            // Log error but don't fail completely
             PlugManVelocity.getInstance().getLogger().warn("Error finding command: {}", command, exception);
         }
 
@@ -180,7 +175,6 @@ public class VelocityPluginManager implements PluginManager {
     }
 
     public void setKnownCommands(Map<String, Command> knownCommands) {
-        // Not implemented
     }
 
     @Override
@@ -190,7 +184,7 @@ public class VelocityPluginManager implements PluginManager {
 
     @Override
     public boolean isPaperPlugin(Plugin plugin) {
-        return false; // Velocity plugins are not Paper plugins
+        return false;
     }
 
     @Override

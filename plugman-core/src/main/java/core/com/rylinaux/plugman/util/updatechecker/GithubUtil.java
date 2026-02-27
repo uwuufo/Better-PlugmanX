@@ -36,7 +36,6 @@ public class GithubUtil {
         var latestVersion = getLatestVersion(repo);
 
         if (latestVersion == null) {
-            // No releases on GitHub yet — treat current version as up-to-date
             if (plugin == null) return new UpdateResult(UpdateResult.ResultType.NOT_INSTALLED);
             return new UpdateResult(UpdateResult.ResultType.UP_TO_DATE, plugin.getVersion(), plugin.getVersion());
         }
@@ -73,7 +72,6 @@ public class GithubUtil {
             if (json == null || !json.has("tag_name")) return null;
 
             var tag = json.get("tag_name").getAsString();
-            // Strip common "v" prefix (e.g. "v3.0.3" → "3.0.3")
             if (tag.startsWith("v") || tag.startsWith("V")) tag = tag.substring(1);
             return tag;
         } catch (Exception e) {

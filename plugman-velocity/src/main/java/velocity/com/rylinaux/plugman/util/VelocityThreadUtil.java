@@ -17,8 +17,6 @@ public class VelocityThreadUtil implements ThreadUtil {
 
     @Override
     public void sync(Runnable runnable) {
-        // Velocity doesn't have a main thread concept like Bukkit
-        // All tasks are essentially async, so we just run it immediately
         async(runnable);
     }
 

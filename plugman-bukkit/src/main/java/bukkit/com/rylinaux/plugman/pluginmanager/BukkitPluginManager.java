@@ -107,7 +107,6 @@ public class BukkitPluginManager extends BasePluginManager {
                 .map(bukkitPlugin -> enable(new BukkitPlugin(bukkitPlugin)))
                 .toList();
 
-        //TODO: Show error message, if not successful
         var allSuccessful = results.stream().allMatch(PluginResult::success);
         return new PluginResult(allSuccessful, "plugins.enabled-all");
     }
