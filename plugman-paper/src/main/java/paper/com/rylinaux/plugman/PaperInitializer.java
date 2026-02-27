@@ -28,7 +28,6 @@ package paper.com.rylinaux.plugman;
 
 import bukkit.com.rylinaux.plugman.PlugManBukkit;
 import bukkit.com.rylinaux.plugman.pluginmanager.BukkitPluginManager;
-import core.com.rylinaux.plugman.config.PlugManConfigurationManager;
 import core.com.rylinaux.plugman.plugins.PluginManager;
 import core.com.rylinaux.plugman.util.reflection.ClassAccessor;
 import lombok.RequiredArgsConstructor;
@@ -71,9 +70,6 @@ public class PaperInitializer {
     public void showPaperWarningIfNeeded(PluginManager pluginManager) {
         // ModernPaperPluginManager (1.20.5+) fully supports paper plugins — no warning needed
         if (!(pluginManager instanceof PaperPluginManager) || pluginManager instanceof ModernPaperPluginManager) return;
-
-        var config = plugin.getServiceRegistry().get(PlugManConfigurationManager.class);
-        if (!config.getPlugManConfig().isShowPaperWarning()) return;
 
         plugin.getLogger().warning("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         plugin.getLogger().warning("It seems like you're running on paper.");

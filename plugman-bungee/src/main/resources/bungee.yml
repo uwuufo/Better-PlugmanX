@@ -1,7 +1,7 @@
-name: PlugManX
+name: BetterPlugManX
 version: ${plugman.version}
 main: bungee.com.rylinaux.plugman.PlugManBungee
-author: "rylinaux, TestAccount666"
+author: "devUFO/uwuufo"
 libraries:
   - com.fasterxml.jackson.core:jackson-databind:${jackson.version}
   - org.yaml:snakeyaml:2.0

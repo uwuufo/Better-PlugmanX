@@ -172,11 +172,6 @@ public abstract class AbstractCommand {
             return false;
         }
 
-        if (getPluginManager().isPaperPlugin(plugin)) {
-            sender.sendMessage("error.paper-plugin");
-            return false;
-        }
-
         return true;
     }
 

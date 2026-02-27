@@ -32,7 +32,6 @@ import core.com.rylinaux.plugman.plugins.PluginManager;
 import core.com.rylinaux.plugman.pojo.UpdateResult;
 import core.com.rylinaux.plugman.util.CollectionUtil;
 import lombok.experimental.UtilityClass;
-
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -53,7 +52,9 @@ public class UpdateUtil {
     }
 
     /**
-     * Check if the installed plugin version is up-to-date with the Spigot version.
+     * Check if the installed plugin version is up-to-date.
+     * Priority: explicit Modrinth → explicit Hangar → explicit SpigotMC/CurseForge
+     *           → auto-search Modrinth → auto-search Hangar → auto-search Spigot → CurseForge
      *
      * @param pluginName the plugin name.
      * @return the reflective UpdateResult.
@@ -61,22 +62,38 @@ public class UpdateUtil {
     public static UpdateResult checkUpToDate(String pluginName, PluginManager pluginManager, ResourceMappingsConfig resourceMappings) {
         if (resourceMappings != null && resourceMappings.getResources() != null) {
             var resourceInfo = resourceMappings.getResources().get(pluginName.toLowerCase(Locale.ROOT));
-            if (resourceInfo != null && resourceInfo.getId() != null && resourceInfo.getSpigotmc() != null)
-                if (resourceInfo.getSpigotmc()) return SpiGetUtil.checkUpToDate(pluginName, resourceInfo.getId(), pluginManager);
-                else return CurseForgeUtil.checkUpToDate(pluginName, resourceInfo.getId(), pluginManager);
+            if (resourceInfo != null) {
+                if (resourceInfo.getGithub() != null)
+                    return GithubUtil.checkUpToDate(pluginName, resourceInfo.getGithub(), pluginManager);
+                if (resourceInfo.getModrinth() != null)
+                    return ModrinthUtil.checkUpToDate(pluginName, resourceInfo.getModrinth(), pluginManager);
+                if (resourceInfo.getHangar() != null)
+                    return HangarUtil.checkUpToDate(pluginName, resourceInfo.getHangar(), pluginManager);
+                if (resourceInfo.getId() != null && resourceInfo.getSpigotmc() != null)
+                    if (resourceInfo.getSpigotmc()) return SpiGetUtil.checkUpToDate(pluginName, resourceInfo.getId(), pluginManager);
+                    else return CurseForgeUtil.checkUpToDate(pluginName, resourceInfo.getId(), pluginManager);
+            }
         }
 
-        var id = SpiGetUtil.getPluginId(pluginName);
-        if (id < 0) {
-            id = CurseForgeUtil.getPluginId(pluginName);
-            if (id < 0) {
-                var plugin = pluginManager.getPluginByName(pluginName);
-                if (plugin == null) return new UpdateResult(UpdateResult.ResultType.INVALID_PLUGIN, pluginName);
-                return new UpdateResult(UpdateResult.ResultType.INVALID_PLUGIN, plugin.getVersion());
-            }
-            return CurseForgeUtil.checkUpToDate(pluginName, null, pluginManager);
-        }
-        return SpiGetUtil.checkUpToDate(pluginName, null, pluginManager);
+        // Auto-detect: try Modrinth first
+        var modrinthId = ModrinthUtil.getProjectId(pluginName);
+        if (modrinthId != null) return ModrinthUtil.checkUpToDate(pluginName, modrinthId, pluginManager);
+
+        // Then Hangar
+        var hangarSlug = HangarUtil.getProjectSlug(pluginName);
+        if (hangarSlug != null) return HangarUtil.checkUpToDate(pluginName, hangarSlug, pluginManager);
+
+        // Then Spigot
+        var spigetId = SpiGetUtil.getPluginId(pluginName);
+        if (spigetId >= 0) return SpiGetUtil.checkUpToDate(pluginName, spigetId, pluginManager);
+
+        // Finally CurseForge
+        var curseId = CurseForgeUtil.getPluginId(pluginName);
+        if (curseId >= 0) return CurseForgeUtil.checkUpToDate(pluginName, null, pluginManager);
+
+        var plugin = pluginManager.getPluginByName(pluginName);
+        if (plugin == null) return new UpdateResult(UpdateResult.ResultType.INVALID_PLUGIN, pluginName);
+        return new UpdateResult(UpdateResult.ResultType.INVALID_PLUGIN, plugin.getVersion());
     }
 
     /**
@@ -92,11 +109,9 @@ public class UpdateUtil {
                 if (resourceInfo.getSpigotmc()) return SpiGetUtil.getPluginId(name);
                 else return CurseForgeUtil.getPluginId(name);
         }
-
         var id = SpiGetUtil.getPluginId(name);
         if (id < 0) id = CurseForgeUtil.getPluginId(name);
         return id;
-
     }
 
     /**

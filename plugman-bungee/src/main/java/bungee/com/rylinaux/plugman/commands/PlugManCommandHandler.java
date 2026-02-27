@@ -46,7 +46,7 @@ public class PlugManCommandHandler extends Command implements TabExecutor {
     private TabExecutor tabCompleter = new PlugManTabCompleter();
 
     public PlugManCommandHandler() {
-        super("plugmanbungee", "plugman.admin", "plmb");
+        super("plugman", "plugman.admin", "plugmanx", "plm", "plmb");
     }
 
     @Override

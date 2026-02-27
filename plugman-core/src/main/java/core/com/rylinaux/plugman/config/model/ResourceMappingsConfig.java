@@ -23,7 +23,7 @@ public class ResourceMappingsConfig {
     @Data
     public static class ResourceInfo {
         /**
-         * The resource ID
+         * The resource ID (SpigotMC or CurseForge)
          */
         @JsonProperty("ID")
         private Long id;
@@ -33,5 +33,23 @@ public class ResourceMappingsConfig {
          */
         @JsonProperty("spigotmc")
         private Boolean spigotmc;
+
+        /**
+         * Modrinth project slug or ID
+         */
+        @JsonProperty("modrinth")
+        private String modrinth;
+
+        /**
+         * Hangar project as "Author/Slug"
+         */
+        @JsonProperty("hangar")
+        private String hangar;
+
+        /**
+         * GitHub repository as "owner/repo"
+         */
+        @JsonProperty("github")
+        private String github;
     }
 }

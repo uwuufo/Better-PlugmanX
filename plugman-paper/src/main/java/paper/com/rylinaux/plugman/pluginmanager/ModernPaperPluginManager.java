@@ -153,9 +153,9 @@ public class ModernPaperPluginManager extends PaperPluginManager {
     private List<Object> cloneProvidersList(Object storage) {
         var clonedList = new ArrayList<Object>();
         try {
-            var providersIterable = MethodAccessor.<Iterable<?>>invoke(storage.getClass(), "getRegisteredProviders", storage);
-            if (providersIterable != null)
-                for (var provider : providersIterable) clonedList.add(provider);
+            var providers = FieldAccessor.<Iterable<?>>getValue(storage.getClass(), "providers", storage);
+            if (providers != null)
+                for (var provider : providers) clonedList.add(provider);
         } catch (Exception e) {
             PlugManBukkit.getInstance().getLogger().log(Level.WARNING, "Could not clone providers list", e);
         }

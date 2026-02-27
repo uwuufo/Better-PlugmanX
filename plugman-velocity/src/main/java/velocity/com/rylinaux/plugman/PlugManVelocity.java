@@ -90,7 +90,8 @@ public final class PlugManVelocity {
         initializer.initializeCoreServices();
         initializer.setupMessaging();
 
-        server.getCommandManager().register("plugman", new PlugManCommandHandler());
+        var meta = server.getCommandManager().metaBuilder("plugman").aliases("plugmanx", "plm").plugin(container).build();
+        server.getCommandManager().register(meta, new PlugManCommandHandler());
 
         initializer.setupAutoFeatures();
     }
@@ -101,6 +102,8 @@ public final class PlugManVelocity {
         var pluginLogger = new VelocityPluginLogger(logger);
         initializer.cleanup();
         server.getCommandManager().unregister("plugman");
+        server.getCommandManager().unregister("plugmanx");
+        server.getCommandManager().unregister("plm");
     }
 
     public ProxyServer getServer() {

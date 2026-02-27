@@ -78,7 +78,7 @@ public class PlugManBukkit extends JavaPlugin {
         initializer.setupMessaging();
 
         serviceRegistry.register(PlugManFileManager.class, fileManager);
-        commandCreator.registerCommand("plugman", new PlugManCommandHandler(), new PlugManTabCompleter(), "plm");
+        commandCreator.registerCommand("plugman", new PlugManCommandHandler(), new PlugManTabCompleter(), "plugmanx", "plm");
 
         // Initialize configuration and scan plugins
         var configurationManager = serviceRegistry.get(PlugManConfigurationManager.class);

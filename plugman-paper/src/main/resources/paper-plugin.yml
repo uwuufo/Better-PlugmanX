@@ -1,8 +1,8 @@
-name: PlugManX
+name: BetterPlugManX
 main: bukkit.com.rylinaux.plugman.PlugManBukkit
 version: ${plugman.version}
 description: Plugin manager for Bukkit servers
-authors: [ rylinaux, TestAccount666 ]
+authors: [ devUFO/uwuufo ]
 api-version: "1.21"
 folia-supported: true
 provides: [ PlugMan ]

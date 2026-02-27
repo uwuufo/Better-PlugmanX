@@ -126,10 +126,9 @@ public class PlugManConfigurationManager {
 
     private void migrateToVersion3() {
         plugManConfig.setVersion(3);
-        plugManConfig.setShowPaperWarning(true);
         saveJacksonConfiguration();
 
-        logger.info("Migrated config to version 3, you can now disable the Paper warning in the config.yml.");
+        logger.info("Migrated config to version 3.");
     }
 
     /**

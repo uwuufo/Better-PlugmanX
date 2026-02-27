@@ -172,8 +172,6 @@ public class PaperPluginManager extends BasePluginManager {
 
         if (!pluginFile.isFile()) return new PluginResult(false, "load.cannot-find");
 
-        if (isPaperPlugin(pluginFile)) return new PluginResult(false, "error.paper-plugin");
-
         return new PluginResult(true, "validation.success");
     }
 

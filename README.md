@@ -1,22 +1,27 @@
-﻿# PlugManX-Folia
+﻿# BetterPlugManX
 
-> A fork of [PlugManX](https://github.com/Test-Account666/PlugManX) with added support for **Folia**, **Paper**, **BungeeCord**, and **Velocity**.
+> A fork of [PlugManX](https://github.com/Test-Account666/PlugManX) with added support for **Folia**, **Paper plugins**, **BungeeCord**, and **Velocity**.
 
-PlugManX is a simple, easy to use plugin that lets server admins manage plugins from either in-game or console without the need to restart the server.
+BetterPlugManX is a simple, easy to use plugin that lets server admins manage plugins from either in-game or console without the need to restart the server.
+
+**Also available as:** `PlugManX-Folia` (repository name)
 
 ## Supported Platforms
 
-| Platform        | Supported |
-|-----------------|-----------|
-| Bukkit / Spigot | ✅ |
-| Paper 1.21+     | ✅ |
-| Folia 1.21+     | ✅ |
-| BungeeCord      | ✅ |
-| Velocity        | ✅ |
+| Platform           | Supported |
+|--------------------|-----------|
+| Bukkit / Spigot    | ✅ |
+| Paper 1.21+        | ✅ |
+| Folia 1.21+        | ✅ |
+| BungeeCord         | ✅ |
+| Velocity           | ✅ |
+
+> **Note:** Paper plugins (`paper-plugin.yml`) are fully supported on Paper 1.21+ — you can load, reload, enable, and disable them just like regular plugins.
 
 ## Features
 
 * Enable, disable, restart, load, reload, and unload plugins from in-game or console.
+* Full support for Paper plugins (`paper-plugin.yml`) and Folia.
 * List plugins alphabetically, with version if specified.
 * Get useful information on plugins such as commands, version, author(s), etc.
 * Easily manage plugins without having to constantly restart your server.
@@ -24,26 +29,29 @@ PlugManX is a simple, easy to use plugin that lets server admins manage plugins 
 * Find the plugin a command is registered to.
 * Tab completion for command names and plugin names.
 * Dump plugin list with versions to a file.
-* Check if a plugin is up-to-date with dev.bukkit.org
-* Permissions Support - All commands default to OP.
+* Check if a plugin is up-to-date via **GitHub**, **Modrinth**, **Hangar**, Spigot, and CurseForge.
+* Permissions Support — All commands default to OP.
+* Hex color gradient prefix in all messages.
 
 ## Commands
 
-| Command                               | Description                                                       |
-|---------------------------------------|-------------------------------------------------------------------|
-| /plugman help                         | Show help information.                                            |
-| /plugman list [-v]                    | List plugins in alphabetical order. Use "-v" to include versions. |
-| /plugman info [plugin]                | Displays information about a plugin.                              |
-| /plugman dump                         | Dump plugin names and version to a file.                          |
-| /plugman usage [plugin]               | List commands that a plugin has registered.                       |
-| /plugman lookup [command]             | Find the plugin a command is registered to.                       |
-| /plugman enable [plugin&#124;all]     | Enable a plugin.                                                  |
-| /plugman disable [plugin&#124;all]    | Disable a plugin.                                                 |
-| /plugman restart [plugin&#124;all]    | Restart (disable/enable) a plugin.                                |
-| /plugman load [plugin]                | Load a plugin.                                                    |
-| /plugman reload [plugin&#124;all]     | Reload (unload/load) a plugin.                                    |
-| /plugman unload [plugin]              | Unload a plugin.                                                  |
-| /plugman check [plugin&#124;all] [-f] | Check if a plugin is up-to-date.                                  |
+| Command                               | Description                                                                    |
+|---------------------------------------|--------------------------------------------------------------------------------|
+| /plugman help                         | Show help information.                                                         |
+| /plugman list [-v]                    | List plugins in alphabetical order. Use "-v" to include versions.              |
+| /plugman info [plugin]                | Displays information about a plugin.                                           |
+| /plugman dump                         | Dump plugin names and version to a file.                                       |
+| /plugman usage [plugin]               | List commands that a plugin has registered.                                    |
+| /plugman lookup [command]             | Find the plugin a command is registered to.                                    |
+| /plugman enable [plugin&#124;all]     | Enable a plugin.                                                               |
+| /plugman disable [plugin&#124;all]    | Disable a plugin.                                                              |
+| /plugman restart [plugin&#124;all]    | Restart (disable/enable) a plugin.                                             |
+| /plugman load [plugin]                | Load a plugin.                                                                 |
+| /plugman reload [plugin&#124;all]     | Reload (unload/load) a plugin.                                                 |
+| /plugman unload [plugin]              | Unload a plugin.                                                               |
+| /plugman check [plugin&#124;all] [-f] | Check if a plugin is up-to-date (checks GitHub, Modrinth, Hangar, and more).  |
+
+**Aliases:** `/plugmanx`, `/plm`
 
 ## Permissions
 
@@ -90,7 +98,7 @@ PlugManX is a simple, easy to use plugin that lets server admins manage plugins 
    ```
 
 3. **Find the built JAR:**
-   `plugman-assembly/target/PlugManX.jar`
+   `plugman-assembly/target/BetterPlugManX.jar`
 
 ## Version Management
 
@@ -132,6 +140,10 @@ dependencies {
     compileOnly 'com.rylinaux:PlugManX:${plugman.version}'
 }
 ```
+
+## Authors
+
+Maintained by [devUFO / uwuufo](https://github.com/uwuufo).
 
 ## License
 

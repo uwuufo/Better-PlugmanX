@@ -50,12 +50,6 @@ public class PlugManConfig {
     @JsonProperty("notify-on-broken-command-removal")
     private boolean notifyOnBrokenCommandRemoval = true;
 
-    /**
-     * Whether to show Paper warning
-     */
-    @JsonProperty("showPaperWarning")
-    private boolean showPaperWarning = true;
-
     @Data
     public static class GenericLoadConfig {
         @JsonProperty("enabled")

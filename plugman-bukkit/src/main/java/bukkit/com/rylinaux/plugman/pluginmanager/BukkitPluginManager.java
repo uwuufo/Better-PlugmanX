@@ -103,7 +103,7 @@ public class BukkitPluginManager extends BasePluginManager {
     @Override
     public PluginResult enableAll() {
         var results = Arrays.stream(Bukkit.getPluginManager().getPlugins())
-                .filter(bukkitPlugin -> !isIgnored(bukkitPlugin.getName()) && !isPaperPlugin(new BukkitPlugin(bukkitPlugin)))
+                .filter(bukkitPlugin -> !isIgnored(bukkitPlugin.getName()))
                 .map(bukkitPlugin -> enable(new BukkitPlugin(bukkitPlugin)))
                 .toList();
 
@@ -132,7 +132,7 @@ public class BukkitPluginManager extends BasePluginManager {
     @Override
     public PluginResult disableAll() {
         var results = Arrays.stream(Bukkit.getPluginManager().getPlugins())
-                .filter(bukkitPlugin -> !isIgnored(bukkitPlugin.getName()) && !isPaperPlugin(new BukkitPlugin(bukkitPlugin)))
+                .filter(bukkitPlugin -> !isIgnored(bukkitPlugin.getName()))
                 .map(bukkitPlugin -> disable(new BukkitPlugin(bukkitPlugin)))
                 .toList();
         var allSuccessful = results.stream().allMatch(PluginResult::success);
