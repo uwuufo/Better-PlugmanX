@@ -9,12 +9,12 @@ BetterPlugManX is a simple, easy to use plugin that lets server admins manage pl
 ## Supported Platforms
 
 | Platform           | Supported |
-|--------------------|-----------|
-| Bukkit / Spigot    | ✅ |
-| Paper 1.21+        | ✅ |
-| Folia 1.21+        | ✅ |
-| BungeeCord         | ✅ |
-| Velocity           | ✅ |
+|--------------------|:---------:|
+| Bukkit / Spigot    | ✅        |
+| Paper 1.21+        | ✅        |
+| Folia 1.21+        | ✅        |
+| BungeeCord         | ✅        |
+| Velocity           | ✅        |
 
 > **Note:** Paper plugins (`paper-plugin.yml`) are fully supported on Paper 1.21+ — you can load, reload, enable, and disable them just like regular plugins.
 
@@ -35,23 +35,23 @@ BetterPlugManX is a simple, easy to use plugin that lets server admins manage pl
 
 ## Commands
 
-| Command                               | Description                                                                    |
-|---------------------------------------|--------------------------------------------------------------------------------|
-| /plugman help                         | Show help information.                                                         |
-| /plugman list [-v]                    | List plugins in alphabetical order. Use "-v" to include versions.              |
-| /plugman info [plugin]                | Displays information about a plugin.                                           |
-| /plugman dump                         | Dump plugin names and version to a file.                                       |
-| /plugman usage [plugin]               | List commands that a plugin has registered.                                    |
-| /plugman lookup [command]             | Find the plugin a command is registered to.                                    |
-| /plugman enable [plugin&#124;all]     | Enable a plugin.                                                               |
-| /plugman disable [plugin&#124;all]    | Disable a plugin.                                                              |
-| /plugman restart [plugin&#124;all]    | Restart (disable/enable) a plugin.                                             |
-| /plugman load [plugin]                | Load a plugin.                                                                 |
-| /plugman reload [plugin&#124;all]     | Reload (unload/load) a plugin.                                                 |
-| /plugman unload [plugin]              | Unload a plugin.                                                               |
-| /plugman check [plugin&#124;all] [-f] | Check if a plugin is up-to-date (checks GitHub, Modrinth, Hangar, and more).  |
+| Command                                  | Description                                                                    |
+|------------------------------------------|--------------------------------------------------------------------------------|
+| /plugmanx help                           | Show help information.                                                         |
+| /plugmanx list [-v]                      | List plugins in alphabetical order. Use "-v" to include versions.              |
+| /plugmanx info [plugin]                  | Displays information about a plugin.                                           |
+| /plugmanx dump                           | Dump plugin names and version to a file.                                       |
+| /plugmanx usage [plugin]                 | List commands that a plugin has registered.                                    |
+| /plugmanx lookup [command]               | Find the plugin a command is registered to.                                    |
+| /plugmanx enable [plugin&#124;all]       | Enable a plugin.                                                               |
+| /plugmanx disable [plugin&#124;all]      | Disable a plugin.                                                              |
+| /plugmanx restart [plugin&#124;all]      | Restart (disable/enable) a plugin.                                             |
+| /plugmanx load [plugin]                  | Load a plugin.                                                                 |
+| /plugmanx reload [plugin&#124;all]       | Reload (unload/load) a plugin.                                                 |
+| /plugmanx unload [plugin]                | Unload a plugin.                                                               |
+| /plugmanx check [plugin&#124;all] [-f]   | Check if a plugin is up-to-date (checks GitHub, Modrinth, Hangar, and more).  |
 
-**Aliases:** `/plugmanx`, `/plm`
+**Aliases:** `/plugman`, `/plm`
 
 ## Permissions
 
