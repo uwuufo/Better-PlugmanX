@@ -85,9 +85,12 @@ public class PlugManBukkit extends JavaPlugin {
         configurationManager.initializeConfiguration();
         fileManager.scanExistingPlugins();
 
-        initializer.setupAutoFeatures();
-
+        // Run the platform hook (e.g. Paper/Folia) BEFORE setupAutoFeatures so
+        // that platform-specific ThreadUtil (PaperThreadUtil / FoliaLib) is
+        // already registered when auto-features schedule their repeating tasks.
         hook.run();
+
+        initializer.setupAutoFeatures();
     }
 
 

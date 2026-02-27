@@ -51,9 +51,7 @@
         <profile>
             <id>include-velocity</id>
             <activation>
-                <property>
-                    <name>include.velocity</name>
-                </property>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <dependencies>
                 <dependency>

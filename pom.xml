@@ -20,6 +20,9 @@
     <profiles>
         <profile>
             <id>include-velocity</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <modules>
                 <module>plugman-velocity</module>
             </modules>

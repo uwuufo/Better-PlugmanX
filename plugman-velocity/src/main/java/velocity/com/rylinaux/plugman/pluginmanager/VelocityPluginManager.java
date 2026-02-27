@@ -1,11 +1,12 @@
 package velocity.com.rylinaux.plugman.pluginmanager;
 
+import com.velocitypowered.api.command.CommandManager;
 import com.velocitypowered.api.plugin.PluginContainer;
 import com.velocitypowered.api.proxy.ProxyServer;
-import com.velocitypowered.proxy.command.VelocityCommandManager;
 import core.com.rylinaux.plugman.PluginResult;
 import core.com.rylinaux.plugman.config.PlugManConfigurationManager;
 import core.com.rylinaux.plugman.plugins.Command;
+import core.com.rylinaux.plugman.plugins.CommandMapWrap;
 import core.com.rylinaux.plugman.plugins.Plugin;
 import core.com.rylinaux.plugman.plugins.PluginManager;
 import core.com.rylinaux.plugman.util.reflection.FieldAccessor;
@@ -33,12 +34,8 @@ public class VelocityPluginManager implements PluginManager {
         return PlugManVelocity.getInstance().getServer();
     }
 
-    private com.velocitypowered.proxy.plugin.VelocityPluginManager getPluginManager() {
-        return (com.velocitypowered.proxy.plugin.VelocityPluginManager) getServer().getPluginManager();
-    }
-
-    private VelocityCommandManager getCommandManager() {
-        return (VelocityCommandManager) getServer().getCommandManager();
+    private CommandManager getCommandManager() {
+        return getServer().getCommandManager();
     }
 
     @Override
@@ -177,20 +174,11 @@ public class VelocityPluginManager implements PluginManager {
 
     @SneakyThrows
     @Override
-    public Map<String, Command> getKnownCommands() {
-        var commands = new HashMap<String, Command>();
-
+    public CommandMapWrap<?> getKnownCommands() {
         var commandMetas = FieldAccessor.<Map<String, com.velocitypowered.api.command.CommandMeta>>getValue("commandMetas", getCommandManager());
-
-        for (var entry : commandMetas.entrySet()) {
-            var alias = entry.getKey();
-
-            commands.put(alias, new VelocityCommand(entry.getValue()));
-        }
-        return commands;
+        return new CommandMapWrap<>(commandMetas, VelocityCommand::new);
     }
 
-    @Override
     public void setKnownCommands(Map<String, Command> knownCommands) {
         // Not implemented
     }

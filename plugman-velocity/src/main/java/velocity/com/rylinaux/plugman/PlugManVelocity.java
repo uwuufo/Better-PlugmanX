@@ -37,7 +37,6 @@ import com.velocitypowered.api.plugin.PluginContainer;
 import core.com.rylinaux.plugman.services.ServiceRegistry;
 import lombok.Getter;
 import lombok.experimental.Delegate;
-import manifold.rt.api.NoBootstrap;
 import org.slf4j.Logger;
 import velocity.com.rylinaux.plugman.commands.PlugManCommandHandler;
 import velocity.com.rylinaux.plugman.logging.VelocityPluginLogger;
@@ -74,7 +73,7 @@ public final class PlugManVelocity {
 
     @Inject
     public PlugManVelocity(PluginContainer container, ProxyServer server, Logger logger, @DataDirectory Path dataDirectory) {
-        this.container = container
+        this.container = container;
         this.server = server;
         this.logger = logger;
         this.dataDirectory = dataDirectory;

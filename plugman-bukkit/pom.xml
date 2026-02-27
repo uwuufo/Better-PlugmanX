@@ -48,10 +48,10 @@
                 <executions>
                     <execution>
                         <id>first</id>
+                        <phase>none</phase>
                         <goals>
                             <goal>update-file-header</goal>
                         </goals>
-                        <phase>process-sources</phase>
                         <configuration>
                             <includes>
                                 <include>src/main/java/com/rylinaux/**</include>

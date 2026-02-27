@@ -33,10 +33,6 @@ import core.com.rylinaux.plugman.plugins.Plugin;
 import core.com.rylinaux.plugman.util.reflection.ClassAccessor;
 import core.com.rylinaux.plugman.util.reflection.FieldAccessor;
 import core.com.rylinaux.plugman.util.reflection.MethodAccessor;
-import io.papermc.paper.plugin.entrypoint.Entrypoint;
-import io.papermc.paper.plugin.entrypoint.LaunchEntryPointHandler;
-import io.papermc.paper.plugin.provider.PluginProvider;
-import io.papermc.paper.plugin.storage.SimpleProviderStorage;
 import lombok.SneakyThrows;
 import lombok.experimental.Delegate;
 import org.bukkit.plugin.EventExecutor;
@@ -138,21 +134,42 @@ public class ModernPaperPluginManager extends PaperPluginManager {
     }
 
     private Object getPluginStorage() {
-        return LaunchEntryPointHandler.INSTANCE.get(Entrypoint.PLUGIN);
+        try {
+            var launchClass = ClassAccessor.getClass("io.papermc.paper.plugin.entrypoint.LaunchEntryPointHandler");
+            if (launchClass == null) return null;
+            var launchInstance = FieldAccessor.getValue(launchClass, "INSTANCE", null);
+            var entrypointClass = ClassAccessor.getClass("io.papermc.paper.plugin.entrypoint.Entrypoint");
+            if (entrypointClass == null) return null;
+            var pluginEntrypoint = FieldAccessor.getValue(entrypointClass, "PLUGIN", null);
+            var getMethod = MethodAccessor.findMethodByName(launchInstance.getClass(), "get");
+            if (getMethod == null) return null;
+            return getMethod.invoke(launchInstance, pluginEntrypoint);
+        } catch (Exception e) {
+            PlugManBukkit.getInstance().getLogger().log(Level.WARNING, "Could not get plugin storage", e);
+            return null;
+        }
     }
 
-    private List<PluginProvider<JavaPlugin>> cloneProvidersList(Object storage) {
-        var providersIterable = ((SimpleProviderStorage) storage).getRegisteredProviders();
-        var clonedList = new ArrayList<PluginProvider<JavaPlugin>>();
-        for (var provider : providersIterable) clonedList.add((PluginProvider<JavaPlugin>) provider);
+    private List<Object> cloneProvidersList(Object storage) {
+        var clonedList = new ArrayList<Object>();
+        try {
+            var providersIterable = MethodAccessor.<Iterable<?>>invoke(storage.getClass(), "getRegisteredProviders", storage);
+            if (providersIterable != null)
+                for (var provider : providersIterable) clonedList.add(provider);
+        } catch (Exception e) {
+            PlugManBukkit.getInstance().getLogger().log(Level.WARNING, "Could not clone providers list", e);
+        }
         return clonedList;
     }
 
-    private void removeMatchingProviders(Plugin plugin, Object storage, List<PluginProvider<JavaPlugin>> providers) {
+    private void removeMatchingProviders(Plugin plugin, Object storage, List<Object> providers) {
         for (var provider : providers) {
-            if (!provider.getMeta().getName().equalsIgnoreCase(plugin.getName())) continue;
-
             try {
+                var meta = MethodAccessor.invoke(provider.getClass(), "getMeta", provider);
+                if (meta == null) continue;
+                var providerName = MethodAccessor.<String>invoke(meta.getClass(), "getName", meta);
+                if (providerName == null || !providerName.equalsIgnoreCase(plugin.getName())) continue;
+
                 removeProviderFromStorage(plugin, storage, provider);
                 cleanupProviderCaches(plugin, storage);
             } catch (Exception exception) {
@@ -162,9 +179,9 @@ public class ModernPaperPluginManager extends PaperPluginManager {
         }
     }
 
-    private void removeProviderFromStorage(Plugin plugin, Object storage, PluginProvider<JavaPlugin> provider) {
+    private void removeProviderFromStorage(Plugin plugin, Object storage, Object provider) {
         try {
-            var providers = FieldAccessor.<List<?>>getValue(SimpleProviderStorage.class, "providers", storage);
+            var providers = FieldAccessor.<List<?>>getValue(storage.getClass(), "providers", storage);
             var removed = providers.remove(provider);
 
             if (removed) {

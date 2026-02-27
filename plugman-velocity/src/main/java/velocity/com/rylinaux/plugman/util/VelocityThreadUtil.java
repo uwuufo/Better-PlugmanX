@@ -26,8 +26,8 @@ public class VelocityThreadUtil implements ThreadUtil {
     public void syncRepeating(Runnable runnable, long delay, long period) {
         PlugManVelocity.getInstance().getServer().getScheduler()
                 .buildTask(PlugManVelocity.getInstance(), runnable)
-                .delay(Duration.ofSeconds(delay))
-                .repeat(Duration.ofSeconds(period))
+                .delay(Duration.ofMillis(delay))
+                .repeat(Duration.ofMillis(period))
                 .schedule();
     }
 
@@ -35,8 +35,8 @@ public class VelocityThreadUtil implements ThreadUtil {
     public void asyncRepeating(Runnable runnable, long delay, long period) {
         PlugManVelocity.getInstance().getServer().getScheduler()
                 .buildTask(PlugManVelocity.getInstance(), runnable)
-                .delay(Duration.ofSeconds(delay))
-                .repeat(Duration.ofSeconds(period))
+                .delay(Duration.ofMillis(delay))
+                .repeat(Duration.ofMillis(period))
                 .schedule();
     }
 }

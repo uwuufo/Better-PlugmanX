@@ -34,13 +34,6 @@
             <version>3.4.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.velocitypowered</groupId>
-            <artifactId>velocity</artifactId>
-            <version>3.4.0-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/temp/velocity-3.4.0-SNAPSHOT-523.jar</systemPath>
-        </dependency>
     </dependencies>
 
     <build>

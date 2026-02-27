@@ -81,7 +81,7 @@ public class BungeePluginManager implements PluginManager {
     public String getFormattedName(Plugin plugin, boolean includeVersions) {
         var name = plugin.getName();
         if (includeVersions) name += " v" + plugin.getVersion();
-        return plugin.isEnabled()? "§a" + name : "§c" + name;
+        return plugin.isEnabled()? "\u00a7a" + name : "\u00a7c" + name;
     }
 
     @Override

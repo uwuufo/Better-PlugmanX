@@ -30,6 +30,8 @@ import bukkit.com.rylinaux.plugman.PlugManBukkit;
 import core.com.rylinaux.plugman.util.ThreadUtil;
 import org.bukkit.Bukkit;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Utility class for threading.
  *
@@ -38,12 +40,30 @@ import org.bukkit.Bukkit;
 public class BukkitThreadUtil implements ThreadUtil {
 
     /**
+     * Returns true when this JVM is running inside a Folia server.
+     * Folia adds {@code io.papermc.paper.threadedregions.RegionizedServer}.
+     */
+    private static boolean isFolia() {
+        try {
+            Class.forName("io.papermc.paper.threadedregions.RegionizedServer");
+            return true;
+        } catch (ClassNotFoundException ignored) {
+            return false;
+        }
+    }
+
+    /**
      * Run a task in a separate thread.
      *
      * @param runnable the task.
      */
     @Override
     public void async(Runnable runnable) {
+        if (isFolia()) {
+            new com.tcoded.folialib.FoliaLib(PlugManBukkit.getInstance())
+                    .getScheduler().runAsync((ignored) -> runnable.run());
+            return;
+        }
         Bukkit.getScheduler().runTaskAsynchronously(PlugManBukkit.getInstance(), runnable);
     }
 
@@ -54,16 +74,31 @@ public class BukkitThreadUtil implements ThreadUtil {
      */
     @Override
     public void sync(Runnable runnable) {
+        if (isFolia()) {
+            new com.tcoded.folialib.FoliaLib(PlugManBukkit.getInstance())
+                    .getScheduler().runLater(runnable, 0L);
+            return;
+        }
         Bukkit.getScheduler().runTask(PlugManBukkit.getInstance(), runnable);
     }
 
     @Override
     public void syncRepeating(Runnable runnable, long delay, long period) {
+        if (isFolia()) {
+            new com.tcoded.folialib.FoliaLib(PlugManBukkit.getInstance())
+                    .getScheduler().runTimer(runnable, delay, period, TimeUnit.MILLISECONDS);
+            return;
+        }
         Bukkit.getScheduler().scheduleSyncRepeatingTask(PlugManBukkit.getInstance(), runnable, delay / 1000 / 20, period / 1000 / 20);
     }
 
     @Override
     public void asyncRepeating(Runnable runnable, long delay, long period) {
+        if (isFolia()) {
+            new com.tcoded.folialib.FoliaLib(PlugManBukkit.getInstance())
+                    .getScheduler().runTimerAsync(runnable, delay, period, TimeUnit.MILLISECONDS);
+            return;
+        }
         Bukkit.getScheduler().scheduleAsyncRepeatingTask(PlugManBukkit.getInstance(), runnable, delay / 1000 / 20, period / 1000 / 20);
     }
 }
