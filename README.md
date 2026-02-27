@@ -8,11 +8,11 @@ PlugManX is a simple, easy to use plugin that lets server admins manage plugins 
 
 | Platform        | Supported |
 |-----------------|-----------|
-| Bukkit / Spigot |         |
-| Paper 1.21+     |         |
-| Folia 1.21+     |         |
-| BungeeCord      |         |
-| Velocity        |         |
+| Bukkit / Spigot | ✅ |
+| Paper 1.21+     | ✅ |
+| Folia 1.21+     | ✅ |
+| BungeeCord      | ✅ |
+| Velocity        | ✅ |
 
 ## Features
 
